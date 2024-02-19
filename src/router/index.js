@@ -7,21 +7,21 @@ const routes = [
     {
         path: '/',
         name: 'post.index',
-        component: () => import('@/views/post/Indexweb1.vue')
+        component: () => import('@/views/post/Index.vue')
     },
 
     //* Route utk Create.vue
     {
-        path: '/buat',
+        path: '/create',
         name: 'post.create',
-        component: () => import('@/views/post/Createweb1.vue')
+        component: () => import('@/views/post/Create.vue')
     },
 
     //* Route utk Edit.vue
     {
         path: '/edit',
         name: 'post.edit',
-        component: () => import('@/views/post/Editweb1.vue')
+        component: () => import('@/views/post/Edit.vue')
     },
 ]
 
