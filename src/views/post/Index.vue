@@ -22,7 +22,7 @@
                                     <td>{{ post.content }}</td>
                                     <td class="text-center">
                                         <router-link :to="{name: 'post.edit', params:{id: post.id }}" class="btn btn-sm btn-primary mr-1">EDIT</router-link>
-                                        <button class="btn btn-sm btn-danger ml-1">DELETE</button>
+                                        <button @click.prevent="postDelete(post.id)" button class="btn btn-sm btn-danger ml-1">DELETE</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -49,22 +49,40 @@ export default{
        // onMounted request API yang sudah kita buat di laravel menggunakan library axios
         onMounted(()=> {
 
-        //get API
-        axios.get('https:localhost:8000/api/posts')
-        .then(response => {
-            
-            //stlah get data dari laravel maka akan di assign ke state posts
-            posts.value = response.data.data
+            //get API
+            axios.get('https:localhost:8000/api/post')
+            .then(response => {
+                
+                //stlah get data dari laravel maka akan di assign ke state posts
+                posts.value = response.data.data
 
-        }).catch(error => {
+            }).catch(error => {
 
-            console.log(error.response.data)
+                console.log(error.response.data)
+            })
+
         })
 
-        })
+        // method DELETE
+        function postDelete (id) {
+
+            axios.delete('http://localhost:8000/api/post/${id}')
+            .then(() => {
+
+                //stlah suatu id di hapus maka di splice data di dalaem state posts
+                posts.value.splice(posts.value.indexOf(id), 1);
+
+            }).catch(error => {
+
+                console.log(error.response.data)
+
+            })
+
+        }
 
         return {
-            posts
+            posts,
+            postDelete
         }
 
     }
